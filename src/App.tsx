@@ -1,5 +1,13 @@
+import { Container } from "@mantine/core";
+
+import Header from "./components/Header";
+
 const App = () => {
-  return <h1>hello world</h1>;
+  return (
+    <Container mt="xl" size="xl">
+      <Header />
+    </Container>
+  );
 };
 
 export default App;
