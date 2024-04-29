@@ -1,14 +1,16 @@
-import { Container } from "@mantine/core";
+import { Container, Stack } from "@mantine/core";
 
-import Header from "./components/Header";
-import Stats from "./components/Stats";
+import { Header, Stats, TodoInput } from "./components";
 
 const App = () => {
   return (
     <Container mt="xl" size="xl">
       <Header />
       <Container mt="xl" size="xs">
-        <Stats />
+        <Stack gap="xl">
+          <Stats />
+          <TodoInput />
+        </Stack>
       </Container>
     </Container>
   );
