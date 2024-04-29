@@ -5,7 +5,7 @@ const Header = () => {
     <Flex justify="space-between" align="center">
       <Flex>
         <Title order={1}>AM</Title>
-        <Title order={1} c="#FF5631">
+        <Title order={1} c="customColor.5">
           TODO
         </Title>
       </Flex>
