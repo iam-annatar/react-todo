@@ -21,6 +21,9 @@ const todoReducer = (todos: TodoItems[], action: Action): TodoItems[] => {
 
       return todos;
 
+    case ACTIONS.DELETE:
+      return todos.filter((todo) => todo.id !== payload?.id);
+
     default:
       return todos;
   }
