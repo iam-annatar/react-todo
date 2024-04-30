@@ -1,6 +1,6 @@
 import { Container, Stack } from "@mantine/core";
 
-import { Header, Stats, TodoInput } from "./components";
+import { Header, Stats, TodoInput, Todos } from "./components";
 
 const App = () => {
   return (
@@ -10,6 +10,7 @@ const App = () => {
         <Stack gap="xl">
           <Stats />
           <TodoInput />
+          <Todos />
         </Stack>
       </Container>
     </Container>
