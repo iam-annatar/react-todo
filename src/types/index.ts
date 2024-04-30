@@ -2,11 +2,11 @@ import type { ACTIONS } from "../constants";
 
 // Shared types
 
-export interface Todo {
+export interface TodoItems {
   id: number;
   text: string;
   complete: boolean;
-  // date: string
+  date: string;
 }
 
 // Context types
@@ -16,7 +16,7 @@ export interface TodoProviderProps {
 }
 
 export interface TodoContextType {
-  todos: Todo[];
+  todos: TodoItems[];
   dispatch: React.Dispatch<Action>;
   inputValue: string;
   setInputValue: React.Dispatch<React.SetStateAction<string>>;
@@ -28,5 +28,5 @@ export type ActionsType = (typeof ACTIONS)[keyof typeof ACTIONS];
 
 export interface Action {
   type: ActionsType;
-  payload?: Todo;
+  payload?: TodoItems;
 }

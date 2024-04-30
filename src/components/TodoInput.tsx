@@ -3,15 +3,16 @@ import type { FormEvent } from "react";
 
 import { ACTIONS } from "../constants";
 import { useTodoProvider } from "../hooks/useTodoProvider";
-import type { Todo } from "../types";
+import type { TodoItems } from "../types";
 
 const TodoInput = () => {
   const { dispatch, inputValue, setInputValue } = useTodoProvider();
 
-  const newTodo: Todo = {
+  const newTodo: TodoItems = {
     id: Math.floor(Math.random() * 100),
     complete: false,
     text: inputValue,
+    date: new Date().toLocaleDateString(),
   };
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {

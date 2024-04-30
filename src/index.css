@@ -1,0 +1,8 @@
+.my-checkbox-label {
+  text-decoration: line-through currentColor 2px;
+}
+
+.my-checkbox-label::before,
+.my-checkbox-label::after {
+  content: "\00a0\00a0";
+}
