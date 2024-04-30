@@ -1,11 +1,35 @@
-import { Button, Flex, Text, TextInput } from "@mantine/core";
-import { useState } from "react";
+import { Button, Text, TextInput } from "@mantine/core";
+import type { FormEvent } from "react";
+
+import { ACTIONS } from "../constants";
+import { useTodoProvider } from "../hooks/useTodoProvider";
+import type { Todo } from "../types";
 
 const TodoInput = () => {
-  const [value, setValue] = useState<string>("");
+  const { dispatch, inputValue, setInputValue } = useTodoProvider();
+
+  const newTodo: Todo = {
+    id: Math.floor(Math.random() * 100),
+    complete: false,
+    text: inputValue,
+  };
+
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    dispatch({ type: ACTIONS.ADD, payload: newTodo });
+    setInputValue("");
+  };
 
   return (
-    <Flex gap="md" align="center" justify="space-between">
+    <form
+      onSubmit={handleSubmit}
+      style={{
+        display: "flex",
+        gap: "1rem",
+        alignItems: "center",
+        justifyContent: "space-between",
+      }}
+    >
       <TextInput
         autoFocus
         style={{ flex: 1 }}
@@ -17,10 +41,11 @@ const TodoInput = () => {
         radius="xl"
         size="md"
         placeholder="Write your next task"
-        value={value}
-        onChange={(e) => setValue(e.target.value)}
+        value={inputValue}
+        onChange={(e) => setInputValue(e.target.value)}
       />
       <Button
+        type="submit"
         variant="filled"
         w="3rem"
         h="3rem"
@@ -32,7 +57,7 @@ const TodoInput = () => {
           &#43;
         </Text>
       </Button>
-    </Flex>
+    </form>
   );
 };
 
