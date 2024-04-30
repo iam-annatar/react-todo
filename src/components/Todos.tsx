@@ -11,7 +11,7 @@ const Todos = () => {
   return (
     <Stack>
       {todos.map((todo) => {
-        return <Todo key={todo.id} {...todo} />;
+        return <Todo key={todo.id} todo={todo} />;
       })}
     </Stack>
   );
