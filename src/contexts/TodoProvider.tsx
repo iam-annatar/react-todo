@@ -3,14 +3,14 @@ import { createContext, useMemo, useReducer, useState } from "react";
 import { ACTIONS } from "../constants";
 import type {
   Action,
-  Todo,
   TodoContextType,
+  TodoItems,
   TodoProviderProps,
 } from "../types";
 
 export const Context = createContext<TodoContextType>({} as TodoContextType);
 
-const todoReducer = (todos: Todo[], action: Action): Todo[] => {
+const todoReducer = (todos: TodoItems[], action: Action): TodoItems[] => {
   const { type, payload } = action;
 
   switch (type) {

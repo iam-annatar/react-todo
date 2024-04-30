@@ -1,4 +1,7 @@
+import { Stack } from "@mantine/core";
+
 import { useTodoProvider } from "../hooks/useTodoProvider";
+import Todo from "./Todo";
 
 const Todos = () => {
   const { todos } = useTodoProvider();
@@ -6,11 +9,11 @@ const Todos = () => {
   if (todos == null) return;
 
   return (
-    <ul>
+    <Stack>
       {todos.map((todo) => {
-        return <li key={todo.id}>{todo.text}</li>;
+        return <Todo key={todo.id} {...todo} />;
       })}
-    </ul>
+    </Stack>
   );
 };
 
