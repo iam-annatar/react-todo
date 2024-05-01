@@ -9,7 +9,7 @@ const Stats = () => {
   const completedTodos = todos.filter((todo) => todo.complete).length;
   const isFinished = todos.length !== 0 && todos.length === completedTodos;
   const isTodoRemaining = todos.length !== 0 && todos.length > completedTodos;
-  const [isVisible, setIsVisible] = useState(false);
+  const [isVisible, setIsVisible] = useState<boolean>(false);
 
   useEffect(() => {
     if (isFinished) {
@@ -24,7 +24,7 @@ const Stats = () => {
         <Group justify="space-evenly" mt="md" mb="xs">
           <Stack gap="0" align="center">
             <Text ta="center" fz="h2" fw="700">
-              {!todos.length ? "Keep track of your Tasks !" : "Todo Done !"}
+              {!todos.length ? "Keep track of your Tasks!" : "Todo Done !"}
             </Text>
             <Text c={!isTodoRemaining ? `lime.7` : "customColor.2"} fz="md">
               {!todos.length
