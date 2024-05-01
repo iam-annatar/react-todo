@@ -19,7 +19,9 @@ const Stats = () => {
 
   return (
     <>
-      {isVisible ? <Confetti autorun={{ speed: 4, duration: 500 }} /> : null}
+      {isVisible ? (
+        <Confetti autorun={{ speed: 5, duration: 700, delay: 100 }} />
+      ) : null}
       <Card shadow="sm" radius="xl" bg="transparent" withBorder>
         <Group justify="space-evenly" mt="md" mb="xs">
           <Stack gap="0" align="center">
