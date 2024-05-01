@@ -8,7 +8,7 @@ import {
   Text,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import { useState } from "react";
+import type { ChangeEvent } from "react";
 
 import { ACTIONS } from "../constants";
 import { useTodoProvider } from "../hooks/useTodoProvider";
@@ -21,9 +21,15 @@ interface TodoProps {
 }
 
 const Todo = ({ todo }: TodoProps) => {
-  const [isComplete, setIsComplete] = useState(todo.complete);
   const { dispatch } = useTodoProvider();
   const [opened, { open, close }] = useDisclosure(false);
+
+  const handleCheckboxChange = (e: ChangeEvent<HTMLInputElement>) => {
+    dispatch({
+      type: ACTIONS.TOGGLE_COMPLETE,
+      payload: { ...todo, complete: e.target.checked },
+    });
+  };
 
   return (
     <Card bg="#1E1E1E" shadow="md">
@@ -31,19 +37,19 @@ const Todo = ({ todo }: TodoProps) => {
         <Checkbox
           className="custom-line"
           classNames={{
-            label: isComplete ? "my-checkbox-label" : "",
+            label: todo.complete ? "my-checkbox-label" : "",
           }}
           styles={{
             input: {
-              borderColor: !isComplete ? theme.colors?.customColor?.[4] : "",
-              backgroundColor: !isComplete ? "transparent" : "",
+              borderColor: !todo.complete ? theme.colors?.customColor?.[4] : "",
+              backgroundColor: !todo.complete ? "transparent" : "",
             },
             label: {
               fontSize: "1.2rem",
             },
           }}
-          checked={isComplete}
-          onChange={(e) => setIsComplete(e.target.checked)}
+          checked={todo.complete}
+          onChange={handleCheckboxChange}
           label={todo.text}
           color="lime.7"
           radius="xl"
