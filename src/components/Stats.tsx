@@ -19,18 +19,12 @@ const Stats = () => {
 
   return (
     <>
-      {isVisible ? (
-        <Confetti autorun={{ speed: 5, duration: 700, delay: 100 }} />
-      ) : null}
+      {isVisible ? <Confetti autorun={{ speed: 1, duration: 500 }} /> : null}
       <Card shadow="sm" radius="xl" bg="transparent" withBorder>
         <Group justify="space-evenly" mt="md" mb="xs">
           <Stack gap="0" align="center">
             <Text ta="center" fz="h2" fw="700">
-              {!todos.length
-                ? "Keep track of your Tasks !"
-                : isTodoRemaining
-                  ? "Todo Done !"
-                  : "All Done !"}
+              {!todos.length ? "Keep track of your Tasks !" : "Todo Done !"}
             </Text>
             <Text c={!isTodoRemaining ? `lime.7` : "customColor.2"} fz="md">
               {!todos.length
