@@ -24,6 +24,11 @@ const todoReducer = (todos: TodoItems[], action: Action): TodoItems[] => {
     case ACTIONS.DELETE:
       return todos.filter((todo) => todo.id !== payload?.id);
 
+    case ACTIONS.EDIT:
+      return todos.map((todo) =>
+        todo.id === payload?.id ? { ...todo, ...payload } : todo,
+      );
+
     default:
       return todos;
   }

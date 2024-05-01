@@ -17,8 +17,11 @@ const TodoInput = () => {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    dispatch({ type: ACTIONS.ADD, payload: newTodo });
-    setInputValue("");
+
+    if (inputValue && inputValue.length > 2) {
+      dispatch({ type: ACTIONS.ADD, payload: newTodo });
+      setInputValue("");
+    }
   };
 
   return (

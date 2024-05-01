@@ -1,10 +1,20 @@
-import { Button, Card, Checkbox, Flex, Image, Text } from "@mantine/core";
+import {
+  Button,
+  Card,
+  Checkbox,
+  Flex,
+  Image,
+  Modal,
+  Text,
+} from "@mantine/core";
+import { useDisclosure } from "@mantine/hooks";
 import { useState } from "react";
 
 import { ACTIONS } from "../constants";
 import { useTodoProvider } from "../hooks/useTodoProvider";
 import { theme } from "../theme";
 import type { TodoItems } from "../types";
+import Edit from "./Edit";
 
 interface TodoProps {
   todo: TodoItems;
@@ -13,6 +23,7 @@ interface TodoProps {
 const Todo = ({ todo }: TodoProps) => {
   const [isComplete, setIsComplete] = useState(todo.complete);
   const { dispatch } = useTodoProvider();
+  const [opened, { open, close }] = useDisclosure(false);
 
   return (
     <Card bg="#1E1E1E" shadow="md">
@@ -39,9 +50,21 @@ const Todo = ({ todo }: TodoProps) => {
           size="md"
         />
         <Flex align="center" justify="center">
-          <Button size="compact-xs" variant="transparent">
+          <Button
+            onClick={open}
+            styles={{
+              root: {
+                outline: "none",
+              },
+            }}
+            size="compact-xs"
+            variant="transparent"
+          >
             <Image src="/icons/edit.svg" />
           </Button>
+          <Modal opened={opened} onClose={close} centered>
+            <Edit onClose={close} todo={todo} />
+          </Modal>
           <Button
             onClick={() =>
               dispatch({
