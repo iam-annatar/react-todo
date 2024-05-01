@@ -9,7 +9,7 @@ const TodoInput = () => {
   const { dispatch, inputValue, setInputValue } = useTodoProvider();
 
   const newTodo: TodoItems = {
-    id: Math.floor(Math.random() * 100),
+    id: Math.floor(Math.random() * 10000),
     complete: false,
     text: inputValue,
     date: new Date().toLocaleDateString(),
