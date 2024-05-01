@@ -6,7 +6,7 @@ const App = () => {
   return (
     <Container mt="xl" size="xl">
       <Header />
-      <Container mt="xl" size="xs">
+      <Container mt="xl" size="sm">
         <Stack gap="xl">
           <Stats />
           <TodoInput />

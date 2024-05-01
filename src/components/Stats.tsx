@@ -12,9 +12,9 @@ const Stats = () => {
     <Card shadow="sm" radius="xl" bg="transparent" withBorder>
       <Group justify="space-evenly" mt="md" mb="xs">
         <Stack gap="0" align="center">
-          <Text fz="h2" fw="700">
+          <Text ta="center" fz="h2" fw="700">
             {!todos.length
-              ? "Keep track of your Todo list !"
+              ? "Keep track of your Tasks !"
               : isTodoRemaining
                 ? "Todo Done !"
                 : "All Done !"}
@@ -23,7 +23,7 @@ const Stats = () => {
             {!todos.length
               ? null
               : !isTodoRemaining
-                ? "horray!"
+                ? "hooray!"
                 : "keep it up."}
           </Text>
         </Stack>
