@@ -1,5 +1,8 @@
-import { Button, Text, TextInput } from "@mantine/core";
+import { Button, Flex, Indicator, Text, TextInput } from "@mantine/core";
+import type { DatePickerProps } from "@mantine/dates";
+import { DateTimePicker } from "@mantine/dates";
 import type { FormEvent } from "react";
+import { useState } from "react";
 
 import { ACTIONS } from "../constants";
 import { useTodoProvider } from "../hooks/useTodoProvider";
@@ -8,12 +11,27 @@ import type { TodoItems } from "../types";
 const TodoInput = () => {
   const { todos, dispatch, inputValue, setInputValue } = useTodoProvider();
   const existedTodo = todos.find((todo) => todo.text === inputValue);
+  const [date, setDate] = useState<Date | null>(null);
 
   const newTodo: TodoItems = {
     id: Math.floor(Math.random() * 10000),
     complete: false,
     text: inputValue,
-    date: new Date().toLocaleDateString(),
+    date: date?.toLocaleString() || new Date().toLocaleString(),
+  };
+
+  const todayIndicator: DatePickerProps["renderDay"] = (dayDate: Date) => {
+    const day = dayDate.getDate();
+    return (
+      <Indicator
+        size={6}
+        color="lime.5"
+        offset={-5}
+        disabled={day !== new Date().getDate()}
+      >
+        <div>{day}</div>
+      </Indicator>
+    );
   };
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -24,6 +42,7 @@ const TodoInput = () => {
     if (inputValue && inputValue.length > 2) {
       dispatch({ type: ACTIONS.ADD, payload: newTodo });
       setInputValue("");
+      setDate(null);
     }
   };
 
@@ -33,14 +52,12 @@ const TodoInput = () => {
         onSubmit={handleSubmit}
         style={{
           display: "flex",
+          flexDirection: "column",
           gap: "1rem",
-          alignItems: "center",
-          justifyContent: "space-between",
         }}
       >
         <TextInput
           autoFocus
-          style={{ flex: 1 }}
           styles={{
             input: {
               backgroundColor: "transparent",
@@ -52,19 +69,31 @@ const TodoInput = () => {
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
         />
-        <Button
-          type="submit"
-          variant="filled"
-          w="3rem"
-          h="3rem"
-          p="sm"
-          radius="100%"
-          color="customColor.5"
-        >
-          <Text fw="bold" fz="1.5rem" c="black">
-            &#43;
-          </Text>
-        </Button>
+        <Flex align="center" justify="center" gap="sm">
+          <DateTimePicker
+            w="50%"
+            placeholder="Pick a Date..."
+            bg="#1E1E1E"
+            value={date}
+            onChange={setDate}
+            hideOutsideDates
+            renderDay={todayIndicator}
+            valueFormat="MM/DD/YYYY"
+          />
+          <Button
+            type="submit"
+            variant="filled"
+            w="3rem"
+            h="3rem"
+            p="sm"
+            radius="100%"
+            color="customColor.5"
+          >
+            <Text fw="bold" fz="1.5rem" c="black">
+              &#43;
+            </Text>
+          </Button>
+        </Flex>
       </form>
       {existedTodo ? <Text c="red">Already in the List</Text> : null}
     </>

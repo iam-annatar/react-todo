@@ -16,7 +16,9 @@
   },
   "dependencies": {
     "@mantine/core": "^7.8.1",
+    "@mantine/dates": "^7.9.0",
     "@mantine/hooks": "^7.8.1",
+    "dayjs": "^1.11.11",
     "react": "^18.2.0",
     "react-canvas-confetti": "^2.0.7",
     "react-dom": "^18.2.0"
