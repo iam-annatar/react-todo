@@ -26,13 +26,11 @@ const Stats = () => {
             <Text ta="center" fz="h2" fw="700">
               {!todos.length ? "Keep track of your Tasks!" : "Todo Done !"}
             </Text>
-            <Text c={!isTodoRemaining ? `lime.7` : "customColor.2"} fz="md">
-              {!todos.length
-                ? null
-                : !isTodoRemaining
-                  ? "hooray!"
-                  : "keep it up."}
-            </Text>
+            {todos.length !== 0 ? (
+              <Text c={!isTodoRemaining ? `lime.7` : "customColor.2"} fz="md">
+                {!isTodoRemaining ? "hooray!" : "keep it up."}
+              </Text>
+            ) : null}
           </Stack>
           {todos.length !== 0 ? (
             <Button
