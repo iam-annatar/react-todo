@@ -27,9 +27,15 @@ const Todos = () => {
 
       <Tabs.Panel value="All">
         <Stack>
-          {todos.map((todo) => {
-            return <Todo key={todo.id} todo={todo} />;
-          })}
+          {todos.length > 0 ? (
+            todos.map((todo) => {
+              return <Todo key={todo.id} todo={todo} />;
+            })
+          ) : (
+            <Text ta="center" fw="bold">
+              Nothing to Show !
+            </Text>
+          )}
         </Stack>
       </Tabs.Panel>
 
