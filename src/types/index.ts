@@ -6,7 +6,7 @@ export interface TodoItems {
   id: number;
   text: string;
   complete: boolean;
-  date: string;
+  date?: string;
 }
 
 // Context types

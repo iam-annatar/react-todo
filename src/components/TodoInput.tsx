@@ -17,7 +17,7 @@ const TodoInput = () => {
     id: Math.floor(Math.random() * 10000),
     complete: false,
     text: inputValue,
-    date: date?.toLocaleString() || new Date().toLocaleString(),
+    date: date?.toLocaleString(),
   };
 
   const todayIndicator: DatePickerProps["renderDay"] = (dayDate: Date) => {
