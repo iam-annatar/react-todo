@@ -65,14 +65,14 @@ const TodoInput = () => {
           }}
           radius="xl"
           size="md"
-          placeholder="Write your next task"
+          placeholder="Write your next todo"
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
         />
         <Flex align="center" justify="center" gap="sm">
           <DateTimePicker
             w="50%"
-            placeholder="Pick a Date..."
+            placeholder="Pick Date and Time"
             bg="#1E1E1E"
             value={date}
             onChange={setDate}
