@@ -26,7 +26,7 @@ const Todo = ({ todo }: TodoProps) => {
 
   const handleCheckboxChange = (e: ChangeEvent<HTMLInputElement>) => {
     dispatch({
-      type: ACTIONS.TOGGLE_COMPLETE,
+      type: ACTIONS.UPDATE,
       payload: { ...todo, complete: e.target.checked },
     });
   };
@@ -68,7 +68,7 @@ const Todo = ({ todo }: TodoProps) => {
           >
             <Image src="/icons/edit.svg" />
           </Button>
-          <Modal opened={opened} onClose={close} centered>
+          <Modal title="Edit" opened={opened} onClose={close} centered>
             <Edit onClose={close} todo={todo} />
           </Modal>
           <Button

@@ -1,11 +1,11 @@
-import { Button, Flex, Indicator, Text, TextInput } from "@mantine/core";
-import type { DatePickerProps } from "@mantine/dates";
+import { Button, Flex, Text, TextInput } from "@mantine/core";
 import { DateTimePicker } from "@mantine/dates";
 import type { FormEvent } from "react";
 import { useState } from "react";
 
 import { ACTIONS } from "../constants";
 import { useTodoProvider } from "../hooks/useTodoProvider";
+import { todayIndicator } from "../lib/Indicator";
 import type { TodoItems } from "../types";
 
 const TodoInput = () => {
@@ -18,20 +18,6 @@ const TodoInput = () => {
     complete: false,
     text: inputValue,
     date: date?.toLocaleString(),
-  };
-
-  const todayIndicator: DatePickerProps["renderDay"] = (dayDate: Date) => {
-    const day = dayDate.getDate();
-    return (
-      <Indicator
-        size={6}
-        color="lime.5"
-        offset={-5}
-        disabled={day !== new Date().getDate()}
-      >
-        <div>{day}</div>
-      </Indicator>
-    );
   };
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -79,6 +65,7 @@ const TodoInput = () => {
             hideOutsideDates
             renderDay={todayIndicator}
             valueFormat="MM/DD/YYYY"
+            clearable
           />
           <Button
             type="submit"
