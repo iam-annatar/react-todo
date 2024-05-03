@@ -1,9 +1,11 @@
-import { Button, Flex, TextInput } from "@mantine/core";
+import { Button, Flex, Stack, TextInput } from "@mantine/core";
+import { DateTimePicker } from "@mantine/dates";
 import type { FormEvent } from "react";
 import { useState } from "react";
 
 import { ACTIONS } from "../constants";
 import { useTodoProvider } from "../hooks/useTodoProvider";
+import { todayIndicator } from "../lib/Indicator";
 import type { TodoItems } from "../types";
 
 interface EditProps {
@@ -15,28 +17,52 @@ const Edit = ({ todo, onClose }: EditProps) => {
   const { dispatch } = useTodoProvider();
   const [val, setVal] = useState<string>(todo.text);
 
+  const dateStr = todo.date || "";
+  const dateVal = dateStr ? new Date(dateStr) : null;
+
+  const [date, setDate] = useState<Date | null>(dateVal);
+
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    dispatch({ type: ACTIONS.EDIT, payload: { ...todo, text: val } });
-    setVal("");
-    onClose();
+
+    if (val && val.length > 2) {
+      dispatch({
+        type: ACTIONS.UPDATE,
+        payload: { ...todo, text: val, date: date?.toLocaleString() },
+      });
+      setVal("");
+      onClose();
+    }
   };
 
   return (
     <form onSubmit={handleSubmit}>
-      <TextInput
-        style={{ flex: 1 }}
-        styles={{
-          input: {
-            backgroundColor: "transparent",
-          },
-        }}
-        radius="xl"
-        size="md"
-        placeholder="Write your next task"
-        value={val}
-        onChange={(e) => setVal(e.currentTarget.value)}
-      />
+      <Stack>
+        <TextInput
+          style={{ flex: 1 }}
+          styles={{
+            input: {
+              backgroundColor: "transparent",
+            },
+          }}
+          radius="xl"
+          size="md"
+          placeholder="Write your next task"
+          value={val}
+          onChange={(e) => setVal(e.currentTarget.value)}
+        />
+        <DateTimePicker
+          w="50%"
+          placeholder="Pick Date and Time"
+          bg="#1E1E1E"
+          value={date}
+          onChange={setDate}
+          hideOutsideDates
+          renderDay={todayIndicator}
+          valueFormat="MM/DD/YYYY"
+          clearable
+        />
+      </Stack>
       <Flex gap="sm" justify="center" mt="lg">
         <Button onClick={onClose} variant="filled" color="customColor.5">
           Cancel

@@ -1,6 +1,5 @@
 export const ACTIONS = {
   ADD: "add",
-  EDIT: "edit",
+  UPDATE: "update",
   DELETE: "delete",
-  TOGGLE_COMPLETE: "toggleComplete",
 };

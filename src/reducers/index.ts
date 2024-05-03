@@ -24,12 +24,7 @@ export const todoReducer = (
     case ACTIONS.DELETE:
       return todos.filter((todo) => todo.id !== payload?.id);
 
-    case ACTIONS.EDIT:
-      return todos.map((todo) =>
-        todo.id === payload?.id ? { ...todo, ...payload } : todo,
-      );
-
-    case ACTIONS.TOGGLE_COMPLETE:
+    case ACTIONS.UPDATE:
       return todos.map((todo) =>
         todo.id === payload?.id ? { ...todo, ...payload } : todo,
       );
