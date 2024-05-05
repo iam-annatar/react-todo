@@ -2,20 +2,24 @@ import { Button, Flex, Text, TextInput } from "@mantine/core";
 import { DateTimePicker } from "@mantine/dates";
 import type { FormEvent } from "react";
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
-import { ACTIONS } from "../constants";
-import { useTodoProvider } from "../hooks/useTodoProvider";
 import { todayIndicator } from "../lib/Indicator";
+import type { AppDispatch, RootStore } from "../state/store";
+import { addTodo } from "../state/Todo/TodoSlice";
 import type { TodoItems } from "../types";
 
 const TodoInput = () => {
-  const { todos, dispatch, inputValue, setInputValue } = useTodoProvider();
+  const todos = useSelector((state: RootStore) => state.todos.todos);
+  const dispatch = useDispatch<AppDispatch>();
+
+  const [inputValue, setInputValue] = useState("");
   const existedTodo = todos.find((todo) => todo.text === inputValue);
   const [date, setDate] = useState<Date | null>(null);
 
   const newTodo: TodoItems = {
     id: Math.floor(Math.random() * 10000),
-    complete: false,
+    completed: false,
     text: inputValue,
     date: date?.toLocaleString(),
   };
@@ -26,7 +30,7 @@ const TodoInput = () => {
     if (existedTodo) return;
 
     if (inputValue && inputValue.length > 2) {
-      dispatch({ type: ACTIONS.ADD, payload: newTodo });
+      dispatch(addTodo(newTodo));
       setInputValue("");
       setDate(null);
     }
@@ -59,7 +63,6 @@ const TodoInput = () => {
           <DateTimePicker
             w="50%"
             placeholder="Pick Date and Time"
-            bg="#1E1E1E"
             value={date}
             onChange={setDate}
             hideOutsideDates

@@ -1,12 +1,14 @@
 import { Button, Card, Group, Stack, Text } from "@mantine/core";
 import { useEffect, useState } from "react";
 import Confetti from "react-canvas-confetti/dist/presets/fireworks";
+import { useSelector } from "react-redux";
 
-import { useTodoProvider } from "../hooks/useTodoProvider";
+import type { RootStore } from "../state/store";
 
 const Stats = () => {
-  const { todos } = useTodoProvider();
-  const completedTodos = todos.filter((todo) => todo.complete).length;
+  const todos = useSelector((state: RootStore) => state.todos.todos);
+
+  const completedTodos = todos.filter((todo) => todo.completed).length;
   const isFinished = todos.length !== 0 && todos.length === completedTodos;
   const isTodoRemaining = todos.length !== 0 && todos.length > completedTodos;
   const [isVisible, setIsVisible] = useState<boolean>(false);
