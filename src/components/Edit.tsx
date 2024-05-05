@@ -2,10 +2,11 @@ import { Button, Flex, Stack, TextInput } from "@mantine/core";
 import { DateTimePicker } from "@mantine/dates";
 import type { FormEvent } from "react";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 
-import { ACTIONS } from "../constants";
-import { useTodoProvider } from "../hooks/useTodoProvider";
 import { todayIndicator } from "../lib/Indicator";
+import type { AppDispatch } from "../state/store";
+import { updateTodo } from "../state/Todo/TodoSlice";
 import type { TodoItems } from "../types";
 
 interface EditProps {
@@ -14,7 +15,7 @@ interface EditProps {
 }
 
 const Edit = ({ todo, onClose }: EditProps) => {
-  const { dispatch } = useTodoProvider();
+  const dispatch = useDispatch<AppDispatch>();
   const [val, setVal] = useState<string>(todo.text);
 
   const dateStr = todo.date || "";
@@ -26,10 +27,9 @@ const Edit = ({ todo, onClose }: EditProps) => {
     e.preventDefault();
 
     if (val && val.length > 2) {
-      dispatch({
-        type: ACTIONS.UPDATE,
-        payload: { ...todo, text: val, date: date?.toLocaleString() },
-      });
+      dispatch(
+        updateTodo({ ...todo, text: val, date: date?.toLocaleString() }),
+      );
       setVal("");
       onClose();
     }

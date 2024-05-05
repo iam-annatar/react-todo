@@ -5,16 +5,11 @@ import type { ACTIONS } from "../constants";
 export interface TodoItems {
   id: number;
   text: string;
-  complete: boolean;
+  completed: boolean;
   date?: string;
 }
 
 // Context types
-
-export interface TodoProviderProps {
-  children: React.ReactNode;
-}
-
 export interface TodoContextType {
   todos: TodoItems[];
   dispatch: React.Dispatch<Action>;

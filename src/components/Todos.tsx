@@ -1,18 +1,19 @@
 import { Stack, Tabs, Text } from "@mantine/core";
+import { useSelector } from "react-redux";
 
-import { useTodoProvider } from "../hooks/useTodoProvider";
+import type { RootStore } from "../state/store";
 import Todo from "./Todo";
 
 const Todos = () => {
-  const { todos } = useTodoProvider();
+  const todos = useSelector((state: RootStore) => state.todos.todos);
 
-  const pendingTodos = todos.filter((todo) => !todo.complete);
-  const finishTodos = todos.filter((todo) => todo.complete);
+  const pendingTodos = todos.filter((todo) => !todo.completed);
+  const finishTodos = todos.filter((todo) => todo.completed);
 
   if (todos == null) return;
 
   return (
-    <Tabs keepMounted={false} color="customColor.3" defaultValue="All">
+    <Tabs keepMounted={false} mb="lg" color="customColor.3" defaultValue="All">
       <Tabs.List grow mb="md">
         <Tabs.Tab fz="lg" value="All">
           All

@@ -9,9 +9,10 @@ import {
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import type { ChangeEvent } from "react";
+import { useDispatch } from "react-redux";
 
-import { ACTIONS } from "../constants";
-import { useTodoProvider } from "../hooks/useTodoProvider";
+import type { AppDispatch } from "../state/store";
+import { deleteTodo, updateTodo } from "../state/Todo/TodoSlice";
 import { theme } from "../theme";
 import type { TodoItems } from "../types";
 import Edit from "./Edit";
@@ -21,14 +22,11 @@ interface TodoProps {
 }
 
 const Todo = ({ todo }: TodoProps) => {
-  const { dispatch } = useTodoProvider();
+  const dispatch = useDispatch<AppDispatch>();
   const [opened, { open, close }] = useDisclosure(false);
 
   const handleCheckboxChange = (e: ChangeEvent<HTMLInputElement>) => {
-    dispatch({
-      type: ACTIONS.UPDATE,
-      payload: { ...todo, complete: e.target.checked },
-    });
+    dispatch(updateTodo({ ...todo, completed: e.target.checked }));
   };
 
   return (
@@ -37,18 +35,20 @@ const Todo = ({ todo }: TodoProps) => {
         <Checkbox
           className="custom-line"
           classNames={{
-            label: todo.complete ? "my-checkbox-label" : "",
+            label: todo.completed ? "my-checkbox-label" : "",
           }}
           styles={{
             input: {
-              borderColor: !todo.complete ? theme.colors?.customColor?.[4] : "",
-              backgroundColor: !todo.complete ? "transparent" : "",
+              borderColor: !todo.completed
+                ? theme.colors?.customColor?.[4]
+                : "",
+              backgroundColor: !todo.completed ? "transparent" : "",
             },
             label: {
               fontSize: "1.2rem",
             },
           }}
-          checked={todo.complete}
+          checked={todo.completed}
           onChange={handleCheckboxChange}
           label={todo.text}
           color="lime.7"
@@ -72,13 +72,8 @@ const Todo = ({ todo }: TodoProps) => {
             <Edit onClose={close} todo={todo} />
           </Modal>
           <Button
-            onClick={() =>
-              dispatch({
-                type: ACTIONS.DELETE,
-                payload: { ...todo, id: todo.id },
-              })
-            }
             size="compact-xs"
+            onClick={() => dispatch(deleteTodo(todo))}
             variant="transparent"
           >
             <Image src="/icons/trash.svg" />
