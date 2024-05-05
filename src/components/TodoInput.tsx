@@ -5,8 +5,8 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { todayIndicator } from "../lib/Indicator";
-import type { AppDispatch, RootStore } from "../state/store";
-import { addTodo } from "../state/Todo/TodoSlice";
+import type { AppDispatch, RootStore } from "../store/store";
+import { addTodo } from "../store/todo/TodoSlice";
 import type { TodoItems } from "../types";
 
 const TodoInput = () => {

@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import Confetti from "react-canvas-confetti/dist/presets/fireworks";
 import { useSelector } from "react-redux";
 
-import type { RootStore } from "../state/store";
+import type { RootStore } from "../store/store";
 
 const Stats = () => {
   const todos = useSelector((state: RootStore) => state.todos.todos);

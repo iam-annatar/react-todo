@@ -11,8 +11,8 @@ import { useDisclosure } from "@mantine/hooks";
 import type { ChangeEvent } from "react";
 import { useDispatch } from "react-redux";
 
-import type { AppDispatch } from "../state/store";
-import { deleteTodo, updateTodo } from "../state/Todo/TodoSlice";
+import type { AppDispatch } from "../store/store";
+import { deleteTodo, updateTodo } from "../store/todo/TodoSlice";
 import { theme } from "../theme";
 import type { TodoItems } from "../types";
 import Edit from "./Edit";
