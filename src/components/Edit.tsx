@@ -5,8 +5,8 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 
 import { todayIndicator } from "../lib/Indicator";
-import type { AppDispatch } from "../state/store";
-import { updateTodo } from "../state/Todo/TodoSlice";
+import type { AppDispatch } from "../store/store";
+import { updateTodo } from "../store/todo/TodoSlice";
 import type { TodoItems } from "../types";
 
 interface EditProps {

@@ -1,7 +1,7 @@
 import { Stack, Tabs, Text } from "@mantine/core";
 import { useSelector } from "react-redux";
 
-import type { RootStore } from "../state/store";
+import type { RootStore } from "../store/store";
 import Todo from "./Todo";
 
 const Todos = () => {
