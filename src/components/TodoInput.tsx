@@ -58,6 +58,7 @@ const TodoInput = () => {
           placeholder="Write your next todo"
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
+          maxLength={30}
         />
         <Flex align="center" justify="center" gap="sm">
           <DateTimePicker
